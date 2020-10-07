@@ -3,7 +3,7 @@
 Written by Minhwa Lee
 
 (Update: 10/07/2020 - Currently Working)
-(Note: BRFSS is too big to upload here :( )
+(Note: The BRFSS dataset is too big to upload here :( )
 
 ## Purpose
 
