@@ -3,6 +3,7 @@
 Written by Minhwa Lee
 
 (Update: 10/07/2020 - Currently Working)
+(Note: BRFSS 
 
 ## Purpose
 
@@ -12,14 +13,16 @@ consisting of thesis submission, oral dissertation, and paper presentation at th
 (Here's the link for details of I.S.: https://www.wooster.edu/academics/research/is/) 
 
 * A joint research about what factors including demography, economic status,
-and health-related accessibility aect an US adults' probabilities of having a
+and health-related accessibility affect an US adults' probabilities of having a
 depressive disorder, as well as of predicting patients with a depressive disorder,
 through a combination of statistical learning methods and machine learning
 techniques using Python Scikit-learn and R
 
+* The dataset: BRFSS (Behaviroal Risk Factor Surveillance System) released from CDC of the United States in 2018
+
 * Investigate the following three learning methods - logistic regression, decision
-trees, and support vector machine - to conduct pattern classication of patients
-from the US who are suering from a depressive disorder in 2018
+trees, and support vector machine - to conduct pattern classification of patients
+from the US who are suffering from a depressive disorder in 2018
 
 
 ## Software
