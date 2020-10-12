@@ -22,7 +22,7 @@ if __name__ == "__main__":
     # Edit (10/12) cleaned_2_again.csv는 불필요한 거 다 제거된 데이터입니다.
 
     os.listdir(os.getcwd())
-    data = pd.read_csv("LLCP_cleaned_2.csv", decimal=',')
+    data = pd.read_csv("LLCP_cleaned_3.csv", decimal=',')
 
     data = pd.DataFrame(data)
     data = data.fillna(0).astype('float32')
@@ -32,18 +32,15 @@ if __name__ == "__main__":
 
     # Edit (10/4): only include top 25 variables
 
-    X = np.array(data_sp.loc[:, data_sp.columns != "ADDEPEV2"])
-    '''
-    select_X = data_sp[
-        ['X_MENT14D', 'DECIDE', 'POORHLTH', 'DRNKANY5', 'DIFFWALK',
-         'HADHYST2', 'X_DRDXAR1', 'MENTHLTH', 'X_AGE80',
-         'MEDCOST', 'X_LTASTH1', 'HIVTSTD3', 'ECIGARET', 'X_AGEG5YR',
-         'LENGEXAM', 'X_BMI5', 'EYEEXAM1',
-         'EMPLOY1', 'STOPSMK2', 'PERSDOC2', 'SLEPTIM1', 'X_DENVST3',
-         'IMFVPLAC', 'WEIGHT2', 'X_CASTHM1', 'LASTPAP2', 'FALL12MN']]
+    #X = np.array(data_sp.loc[:, data_sp.columns != "ADDEPEV2"])
+
+    select_X = data_sp[['MENTHLTH', 'DECIDE', 'POORHLTH', 'HPLSTTST',
+                          'EMPLOY1', 'SEX1', 'SMOKDAY2', 'DIFFDRES', 'HEIGHT3',
+                          'AGE', 'DIFFALON', 'INCOME2', 'NUMHHOL3', 'RMVTETH4',
+                          'SLEPTIM1', 'CHCCOPD1', 'SEATBELT', 'AVEDRNK2',
+                          'PHYSHLTH']]
 
     X = np.array(select_X)
-    '''
 
     Y = np.array(data_sp.loc[:, data_sp.columns == "ADDEPEV2"])
 
@@ -64,15 +61,11 @@ if __name__ == "__main__":
 
     # print("Feature importance: \n{}".format(clf.feature_importances_))
 
-    col_names = data_sp.columns.tolist()
-    col_names.remove("ADDEPEV2")
-
-    # col_names = select_X.columns.tolist()
+    col_names = select_X.columns.tolist()
 
     print(pd.DataFrame({'col_name': clf.feature_importances_},
                        index=col_names).sort_values(by='col_name',
                                                           ascending=False))
-
 
     def plot_feature_importance_depress(model):
         n_features = X.shape[1]
@@ -85,12 +78,10 @@ if __name__ == "__main__":
         plt.show()
 
 
-    # plot_feature_importance_depress(clf)
+    plot_feature_importance_depress(clf)
 
-    '''
+
     # Visualization
-
-    col_names = select_X.columns.tolist()
 
     # Edit (10/4) : col_names.remove("ADDEPEV2")
 
@@ -101,5 +92,5 @@ if __name__ == "__main__":
                                     rounded=True, special_characters=True)
 
     dt_graph = pydotplus.graph_from_dot_data(data_dot)
-    dt_graph.write_png("DT_2.png")
-    '''
+    dt_graph.write_png("DT_core.png")
+

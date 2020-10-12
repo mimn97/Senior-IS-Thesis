@@ -33,7 +33,16 @@ if __name__ == "__main__":
     # Edit (10/4): only include top 25 variables
 
     X = np.array(data_sp.loc[:, data_sp.columns != "ADDEPEV2"])
+
+    select_X = data_sp[['X_MENT14D', 'DECIDE', 'POORHLTH',
+                        'X_BMI5', 'HTIN4', 'HPLSTTST', 'X_PNEUMO3', 'SEX1',
+                        'X_SMOKER3', 'CHCCOPD1', 'X_CHLDCNT', 'X_DRDXAR1',
+                        'X_AGE80',  'CPDEMO1B', 'MARITAL',
+                        'CHECKUP1', 'SLEPTIM1', 'EMPLOY1', 'AVEDRNK2',
+                        'MAXDRNKS', 'WEIGHT2']]
+
     '''
+
     select_X = data_sp[
         ['X_MENT14D', 'DECIDE', 'POORHLTH', 'DRNKANY5', 'DIFFWALK',
          'HADHYST2', 'X_DRDXAR1', 'MENTHLTH', 'X_AGE80',
@@ -42,8 +51,9 @@ if __name__ == "__main__":
          'EMPLOY1', 'STOPSMK2', 'PERSDOC2', 'SLEPTIM1', 'X_DENVST3',
          'IMFVPLAC', 'WEIGHT2', 'X_CASTHM1', 'LASTPAP2', 'FALL12MN']]
 
-    X = np.array(select_X)
     '''
+
+    X = np.array(select_X)
 
     Y = np.array(data_sp.loc[:, data_sp.columns == "ADDEPEV2"])
 
@@ -62,12 +72,9 @@ if __name__ == "__main__":
 
     # Feature Importance
 
-    # print("Feature importance: \n{}".format(clf.feature_importances_))
+    print("Feature importance: \n{}".format(clf.feature_importances_))
 
-    col_names = data_sp.columns.tolist()
-    col_names.remove("ADDEPEV2")
-
-    # col_names = select_X.columns.tolist()
+    col_names = select_X.columns.tolist()
 
     print(pd.DataFrame({'col_name': clf.feature_importances_},
                        index=col_names).sort_values(by='col_name',
@@ -85,9 +92,9 @@ if __name__ == "__main__":
         plt.show()
 
 
-    # plot_feature_importance_depress(clf)
+    plot_feature_importance_depress(clf)
 
-    '''
+
     # Visualization
 
     col_names = select_X.columns.tolist()
@@ -101,5 +108,5 @@ if __name__ == "__main__":
                                     rounded=True, special_characters=True)
 
     dt_graph = pydotplus.graph_from_dot_data(data_dot)
-    dt_graph.write_png("DT_2.png")
-    '''
+    dt_graph.write_png("DT_selected.png")
+
