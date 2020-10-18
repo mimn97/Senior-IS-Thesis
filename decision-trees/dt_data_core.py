@@ -28,7 +28,7 @@ if __name__ == "__main__":
     data = data.fillna(0).astype('float32')
     data = data.astype('int64')
 
-    data_sp = data.sample(frac=0.05, random_state=1)
+    data_sp = data.sample(frac=0.05, random_state=3)
 
     # Edit (10/4): only include top 25 variables
 
@@ -45,28 +45,31 @@ if __name__ == "__main__":
     Y = np.array(data_sp.loc[:, data_sp.columns == "ADDEPEV2"])
 
     X_train, X_test, Y_train, Y_test = train_test_split(X, Y, test_size=0.3,
-                                                        random_state=1)
+                                                        random_state=3)
 
-    clf = DecisionTreeClassifier(max_depth=5, random_state=1)
+    clf = DecisionTreeClassifier(max_depth=4, random_state=3)
     clf = clf.fit(X_train, Y_train)
 
     pred = clf.predict(X_test)
 
     print("train score : {}".format(clf.score(X_train, Y_train)))
-
-    print(classification_report(Y_test, pred))
-    print("test score : {}".format(clf.score(X_test, Y_test)))
+    #print(classification_report(Y_test, pred))
+    print("test score : {}\n".format(clf.score(X_test, Y_test)))
 
     # Feature Importance
 
-    # print("Feature importance: \n{}".format(clf.feature_importances_))
+    '''
+
+    print("Feature importance: \n{}".format(clf.feature_importances_))
 
     col_names = select_X.columns.tolist()
 
     print(pd.DataFrame({'col_name': clf.feature_importances_},
                        index=col_names).sort_values(by='col_name',
                                                           ascending=False))
+    '''
 
+    '''
     def plot_feature_importance_depress(model):
         n_features = X.shape[1]
         plt.barh(range(n_features), model.feature_importances_, align='center')
@@ -93,4 +96,5 @@ if __name__ == "__main__":
 
     dt_graph = pydotplus.graph_from_dot_data(data_dot)
     dt_graph.write_png("DT_core.png")
+    '''
 
