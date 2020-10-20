@@ -3,8 +3,6 @@ import warnings
 from sklearn.metrics import classification_report, confusion_matrix
 from sklearn.model_selection import train_test_split
 from sklearn.tree import DecisionTreeClassifier
-from sklearn import tree
-from IPython.display import Image
 
 import pandas as pd
 import numpy as np
@@ -20,6 +18,7 @@ if __name__ == "__main__":
 
     # Edit (09/30) cleaned_2.csv는 yes, no만 있습니다.
     # Edit (10/12) cleaned_2_again.csv는 불필요한 거 다 제거된 데이터입니다.
+    # Edit (10/19) cleaned_3.csvs는 core section columns 만 있습니다.
 
     os.listdir(os.getcwd())
     data = pd.read_csv("LLCP_cleaned_3.csv", decimal=',')
@@ -28,26 +27,28 @@ if __name__ == "__main__":
     data = data.fillna(0).astype('float32')
     data = data.astype('int64')
 
-    data_sp = data.sample(frac=0.05, random_state=3)
+    data_sp = data.sample(frac=0.05, random_state=30)
 
     # Edit (10/4): only include top 25 variables
 
-    #X = np.array(data_sp.loc[:, data_sp.columns != "ADDEPEV2"])
 
+    '''
     select_X = data_sp[['MENTHLTH', 'DECIDE', 'POORHLTH', 'HPLSTTST',
                           'EMPLOY1', 'SEX1', 'SMOKDAY2', 'DIFFDRES', 'HEIGHT3',
                           'AGE', 'DIFFALON', 'INCOME2', 'NUMHHOL3', 'RMVTETH4',
                           'SLEPTIM1', 'CHCCOPD1', 'SEATBELT', 'AVEDRNK2',
                           'PHYSHLTH']]
-
+    
     X = np.array(select_X)
-
+    '''
+    X = np.array(data_sp.loc[:, data_sp.columns != "ADDEPEV2"])
     Y = np.array(data_sp.loc[:, data_sp.columns == "ADDEPEV2"])
 
     X_train, X_test, Y_train, Y_test = train_test_split(X, Y, test_size=0.3,
-                                                        random_state=3)
+                                                        random_state=30)
 
-    clf = DecisionTreeClassifier(max_depth=4, random_state=3)
+    clf = DecisionTreeClassifier(max_depth=4, random_state=30,
+                                 criterion='gini')
     clf = clf.fit(X_train, Y_train)
 
     pred = clf.predict(X_test)
@@ -57,19 +58,16 @@ if __name__ == "__main__":
     print("test score : {}\n".format(clf.score(X_test, Y_test)))
 
     # Feature Importance
-
     '''
-
     print("Feature importance: \n{}".format(clf.feature_importances_))
 
-    col_names = select_X.columns.tolist()
+    col_names = data_sp.columns.tolist()
+    col_names.remove('ADDEPEV2')
 
     print(pd.DataFrame({'col_name': clf.feature_importances_},
                        index=col_names).sort_values(by='col_name',
                                                           ascending=False))
-    '''
 
-    '''
     def plot_feature_importance_depress(model):
         n_features = X.shape[1]
         plt.barh(range(n_features), model.feature_importances_, align='center')
@@ -97,4 +95,3 @@ if __name__ == "__main__":
     dt_graph = pydotplus.graph_from_dot_data(data_dot)
     dt_graph.write_png("DT_core.png")
     '''
-
