@@ -20,7 +20,7 @@ if __name__ == "__main__":
     # columns.
 
     os.listdir(os.getcwd())
-    data = pd.read_csv("LLCP_cleaned_3.csv", decimal=',')
+    data = pd.read_csv("BRFSS_core_cleaned.csv", decimal=',')
 
     data = pd.DataFrame(data)
     data = data.fillna(0).astype('float32')
