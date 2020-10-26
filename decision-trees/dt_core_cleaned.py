@@ -67,7 +67,7 @@ if __name__ == "__main__":
 
     plot_feature_importance_depress(clf)
 
-    '''
+
     # Visualization
 
     target_names = np.array(['Yes', 'No'])
@@ -77,5 +77,5 @@ if __name__ == "__main__":
                                     rounded=True, special_characters=True)
 
     dt_graph = pydotplus.graph_from_dot_data(data_dot)
-    dt_graph.write_png("DT_core.png")
-    '''
+    dt_graph.write_png("DT_core_1.png")
+
